@@ -17,8 +17,12 @@ describe Game do
       expect(game2.cards.count).to eq 104
       expect(game8.cards.count).to eq 416
     end
+    it "should have a dealer" do
+      expect(game.dealer).to be_a(Player)
+    end
     it "should have an array of players" do
       expect(game.players).to be_a(Array)
+      expect(game.players.all?{|p| p.class == Player}).to be true
     end
     it "should have the right number of players" do
       expect(game.players.count).to eq 1
