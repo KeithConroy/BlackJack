@@ -33,4 +33,15 @@ describe Game do
       expect(game.card_count).to eq 0
     end
   end
+
+  context "#deal" do
+    before { game.deal }
+
+    it "should give the dealer two cards" do
+      expect(game.dealer.cards.count == 2).to be true
+    end
+    it "should give each player two cards" do
+      expect(game.players.all? {|p| p.cards.count == 2}).to be true
+    end
+  end
 end
