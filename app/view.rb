@@ -16,18 +16,22 @@ class View
       puts game.card_count
     end
     puts ""
+    puts "Cards Used: #{game.used}"
+    puts "Cards Left: #{game.cards.count}"
+    puts "Cards Left: #{game.cards}"
   end
 
   def player_info(player)
-    puts player.name
-    puts "Cards: #{player.cards}"
-    puts "Total:  #{player.total}"
+    score = ""
     if player.bust?
-      puts "\e[31mBUST\e[0m"
+      score = "\e[31mBUST\e[0m"
     end
     if player.blackjack?
-      puts "\e[32mBlackJack\e[0m"
+      score = "\e[32mBlackJack\e[0m"
     end
+    puts player.name
+    puts "Cards: #{player.cards}"
+    puts "Total:  #{player.total} #{score}"
     puts ""
   end
 
@@ -45,5 +49,15 @@ class View
 
   def winner(player)
     puts "#{player.name} wins"
+  end
+
+  def play_again?
+    puts "Would you like to play again?"
+    puts "Y/N"
+    return gets.chomp
+  end
+
+  def game_over
+    puts "Thanks for playing!"
   end
 end
