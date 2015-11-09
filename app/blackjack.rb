@@ -13,8 +13,9 @@ module Blackjack
     end
     if total > 21 && cards.include?("A")
       ace_index = cards.index("A")
-      cards.delete_at(ace_index)
-      total = total(cards) +1
+      temp_cards = cards.clone
+      temp_cards.delete_at(ace_index)
+      total = total(temp_cards) +1
     end
     return total
   end
