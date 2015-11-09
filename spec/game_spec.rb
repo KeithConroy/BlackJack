@@ -43,5 +43,14 @@ describe Game do
     it "should give each player two cards" do
       expect(game.players.all? {|p| p.cards.count == 2}).to be true
     end
+    it "should remove dealt cards" do
+      expect(game.cards.count).to eq 48
+      game8.deal
+      expect(game8.cards.count).to eq 398
+    end
+  end
+
+  context "#players_turn" do
+
   end
 end
