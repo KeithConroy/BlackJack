@@ -3,7 +3,7 @@ require_relative "player"
 require_relative "blackjack"
 
 class Game
-  attr_reader :cards, :dealer, :players, :card_count
+  attr_reader :cards, :dealer, :players, :card_count, :used
 
   def initialize(args = {})
     decks = []
@@ -15,26 +15,40 @@ class Game
     args[:players].times {|i| @players << Player.new({name: "Player#{i+1}", dealer: @dealer})}
 
     @card_count = 0
+    @used = 0
   end
 
   def deal
+    clear_table
     @cards.shuffle!
 
-    card = @cards.pop
+    card = draw_card
     @card_count += Blackjack.count_cards(card)
     @dealer.cards << card
 
     @players.each do |player|
       2.times do
-        card = @cards.pop
+        card = draw_card
         @card_count += Blackjack.count_cards(card)
         player.cards << card
       end
     end
   end
 
+  def draw_card
+    @used += 1
+    @cards.pop
+  end
+
+  def clear_table
+    @dealer.cards = []
+    @players.each do |player|
+      player.cards = []
+    end
+  end
+
   def hit(player)
-    card = @cards.pop
+    card = draw_card
     @card_count += Blackjack.count_cards(card)
     player.cards << card
   end
