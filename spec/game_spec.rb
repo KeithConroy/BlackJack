@@ -4,6 +4,7 @@ describe Game do
   let(:game){ Game.new({decks: 1, players: 1}) }
   let(:game2){ Game.new({decks: 2, players: 2}) }
   let(:game8){ Game.new({decks: 8, players: 8}) }
+  let(:player){ Player.new({name: "Player"})}
 
   context "#initialize" do
     it "should be a Game" do
@@ -37,8 +38,8 @@ describe Game do
   context "#deal" do
     before { game.deal }
 
-    it "should give the dealer two cards" do
-      expect(game.dealer.cards.count == 2).to be true
+    it "should give the dealer one card" do
+      expect(game.dealer.cards.count == 1).to be true
     end
     it "should give each player two cards" do
       expect(game.players.all? {|p| p.cards.count == 2}).to be true
@@ -50,7 +51,12 @@ describe Game do
     end
   end
 
-  context "#players_turn" do
-
+  context "#hit" do
+    it "should give a card to the player" do
+      expect{game.hit(player)}.to change{player.cards.count}.by 1
+    end
+    it "should remove dealt card" do
+      expect{game.hit(player)}.to change{game.cards.count}.by -1
+    end
   end
 end
