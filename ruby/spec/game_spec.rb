@@ -45,9 +45,9 @@ describe Game do
       expect(game.players.all? {|p| p.cards.count == 2}).to be true
     end
     it "should remove dealt cards" do
-      expect(game.cards.count).to eq 48
+      expect(game.cards.count).to eq 49
       game8.deal
-      expect(game8.cards.count).to eq 398
+      expect(game8.cards.count).to eq 399
     end
   end
 

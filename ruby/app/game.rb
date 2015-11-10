@@ -22,22 +22,13 @@ class Game
     clear_table
     @cards.shuffle!
 
-    card = draw_card
-    @card_count += Blackjack.count_cards(card)
-    @dealer.cards << card
+    hit(@dealer)
 
     @players.each do |player|
       2.times do
-        card = draw_card
-        @card_count += Blackjack.count_cards(card)
-        player.cards << card
+        hit(player)
       end
     end
-  end
-
-  def draw_card
-    @used += 1
-    @cards.pop
   end
 
   def clear_table
@@ -48,7 +39,8 @@ class Game
   end
 
   def hit(player)
-    card = draw_card
+    @used += 1
+    card = @cards.pop
     @card_count += Blackjack.count_cards(card)
     player.cards << card
   end
